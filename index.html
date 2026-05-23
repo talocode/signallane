@@ -149,6 +149,11 @@
       border-radius: 10px; font-size: 15px; color: #d4d4d4; max-width: 440px;
     }
     .success-msg.visible { display: block; }
+    .error-msg {
+      display: none; padding: 16px; background: #1a0e0e; border: 1px solid #3a1a1a;
+      border-radius: 10px; font-size: 15px; color: #d4a0a0; max-width: 440px;
+    }
+    .error-msg.visible { display: block; }
 
     /* Footer */
     .footer { padding: 48px 0; border-top: 1px solid #1a1a1a; }
@@ -369,6 +374,9 @@
       <div class="success-msg" id="earlyAccessSuccess">
         You're on the early access list.
       </div>
+      <div class="error-msg" id="earlyAccessError">
+        Something went wrong. Please try again.
+      </div>
     </div>
   </section>
 
@@ -387,14 +395,18 @@
   </footer>
 
   <script>
-    // --- Early Access: localStorage ---
+    // --- Early Access: localStorage + Formspree/Getform ---
     (function() {
       var STORAGE_KEY = 'signallane_early_access';
       var form = document.getElementById('earlyAccessForm');
+      var formBtn = form.querySelector('button[type="submit"]');
       var success = document.getElementById('earlyAccessSuccess');
+      var errorEl = document.getElementById('earlyAccessError');
       var emailInput = document.getElementById('email');
       var roleSelect = document.getElementById('role');
       var goalSelect = document.getElementById('goal');
+
+      var FORM_ENDPOINT = 'https://formspree.io/f/mbdbkddj';
 
       var existing = localStorage.getItem(STORAGE_KEY);
       if (existing) {
@@ -402,6 +414,7 @@
           var entries = JSON.parse(existing);
           if (Array.isArray(entries) && entries.length > 0) {
             form.style.display = 'none';
+            success.textContent = 'You\'re on the early access list.';
             success.classList.add('visible');
           }
         } catch (e) {}
@@ -409,20 +422,73 @@
 
       form.addEventListener('submit', function(e) {
         e.preventDefault();
+
+        errorEl.classList.remove('visible');
         var email = emailInput.value.trim();
         var role = roleSelect.value;
         var goal = goalSelect.value;
         if (!email || !role || !goal) return;
-        var entries = [];
-        try {
-          var raw = localStorage.getItem(STORAGE_KEY);
-          if (raw) entries = JSON.parse(raw);
-        } catch (e) {}
-        if (!Array.isArray(entries)) entries = [];
-        entries.push({ email: email, role: role, goal: goal, timestamp: new Date().toISOString() });
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(entries));
-        form.style.display = 'none';
-        success.classList.add('visible');
+
+        var prevText = formBtn.textContent;
+        formBtn.textContent = 'Submitting...';
+        formBtn.disabled = true;
+
+        var payload = {
+          email: email,
+          role: role,
+          goal: goal,
+          timestamp: new Date().toISOString()
+        };
+
+        function saveLocal() {
+          var entries = [];
+          try {
+            var raw = localStorage.getItem(STORAGE_KEY);
+            if (raw) entries = JSON.parse(raw);
+          } catch (e) {}
+          if (!Array.isArray(entries)) entries = [];
+          entries.push(payload);
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(entries));
+        }
+
+        function showResult(sent) {
+          saveLocal();
+          form.style.display = 'none';
+          if (sent) {
+            success.textContent = 'You\'re on the early access list.';
+          } else {
+            success.textContent = 'You\'re on the early access list (saved locally).';
+          }
+          success.classList.add('visible');
+        }
+
+        if (FORM_ENDPOINT) {
+          fetch(FORM_ENDPOINT, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+            body: JSON.stringify(payload)
+          })
+          .then(function(res) {
+            if (res.ok) {
+              showResult(true);
+            } else {
+              showResult(false);
+            }
+          })
+          .catch(function() {
+            showResult(false);
+          })
+          .finally(function() {
+            formBtn.textContent = prevText;
+            formBtn.disabled = false;
+          });
+        } else {
+          setTimeout(function() {
+            showResult(false);
+            formBtn.textContent = prevText;
+            formBtn.disabled = false;
+          }, 400);
+        }
       });
     })();
 
