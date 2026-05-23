@@ -33,4 +33,4 @@ Then visit `http://localhost:3000`.
 
 Open source by [Talocode](https://github.com/talocode).
 
-Founded by [Abdulmuiz Adeyemo](https://github.com/abdulmuizz).
+Founded by [Abdulmuiz Adeyemo](https://github.com/Abdulmuiz44).
