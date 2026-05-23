@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="SignalLane — AI growth assistant for X. Find better conversations, write sharper replies, grow without sounding like AI.">
+  <meta name="theme-color" content="#0a0a0a">
+  <title>SignalLane — Sharper replies. Less noise.</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background: #0a0a0a;
+      color: #ffffff;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    .container { max-width: 768px; margin: 0 auto; padding: 0 20px; }
+
+    /* Header */
+    .header { padding: 24px 0; border-bottom: 1px solid #1a1a1a; }
+    .header-inner { display: flex; align-items: center; justify-content: space-between; }
+    .logo-wrap { display: flex; align-items: center; gap: 10px; }
+    .logo-img { height: 32px; width: auto; }
+    .logo-text { font-size: 18px; font-weight: 700; letter-spacing: -0.3px; }
+    .badge {
+      font-size: 12px; font-weight: 500; color: #a3a3a3;
+      background: #141414; border: 1px solid #262626;
+      padding: 4px 10px; border-radius: 20px;
+    }
+
+    /* Sections */
+    .section { padding: 80px 0; }
+    .section-sm { padding: 60px 0; }
+
+    /* Hero */
+    .hero-logo { height: 48px; width: auto; margin-bottom: 20px; }
+    .hero-badge {
+      display: inline-block; font-size: 13px; font-weight: 500; color: #a3a3a3;
+      background: #141414; border: 1px solid #262626;
+      padding: 5px 14px; border-radius: 20px; margin-bottom: 24px;
+    }
+    .hero h1 { font-size: 42px; font-weight: 700; line-height: 1.15; letter-spacing: -0.5px; margin-bottom: 16px; }
+    .hero p { font-size: 17px; color: #a3a3a3; max-width: 580px; line-height: 1.7; margin-bottom: 32px; }
+    .hero-buttons { display: flex; gap: 12px; flex-wrap: wrap; }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 12px 24px; border-radius: 8px; font-size: 15px;
+      font-weight: 600; cursor: pointer; text-decoration: none;
+      border: none; transition: all 0.15s ease;
+      font-family: inherit; line-height: 1;
+    }
+    .btn-primary { background: #ffffff; color: #0a0a0a; }
+    .btn-primary:hover { background: #e5e5e5; }
+    .btn-secondary { background: #141414; color: #ffffff; border: 1px solid #333; }
+    .btn-secondary:hover { background: #1f1f1f; border-color: #444; }
+    .btn-sm { padding: 8px 16px; font-size: 13px; border-radius: 6px; }
+
+    /* Problem */
+    .problem p { font-size: 18px; color: #d4d4d4; max-width: 580px; }
+
+    /* Cards */
+    .cards { display: grid; grid-template-columns: 1fr; gap: 16px; }
+    .card {
+      background: #141414; border: 1px solid #262626; border-radius: 12px;
+      padding: 28px; transition: border-color 0.15s ease;
+    }
+    .card:hover { border-color: #404040; }
+    .card-icon { font-size: 28px; margin-bottom: 16px; display: block; }
+    .card h3 { font-size: 18px; font-weight: 600; margin-bottom: 8px; letter-spacing: -0.2px; }
+    .card p { font-size: 15px; color: #a3a3a3; line-height: 1.65; }
+
+    /* Section label */
+    .section-label {
+      font-size: 12px; font-weight: 600; text-transform: uppercase;
+      letter-spacing: 0.8px; color: #737373; margin-bottom: 12px;
+    }
+    .section-title { font-size: 32px; font-weight: 700; letter-spacing: -0.4px; margin-bottom: 40px; }
+
+    /* Demo */
+    .demo-form { display: flex; flex-direction: column; gap: 16px; margin-bottom: 32px; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+    .form-label { font-size: 13px; font-weight: 500; color: #a3a3a3; }
+    .form-textarea, .form-select, .form-input {
+      background: #141414; border: 1px solid #262626; border-radius: 8px;
+      padding: 12px 14px; font-size: 15px; color: #ffffff;
+      font-family: inherit; line-height: 1.5; transition: border-color 0.15s ease;
+      resize: vertical; width: 100%;
+    }
+    .form-textarea:focus, .form-select:focus, .form-input:focus {
+      outline: none; border-color: #525252;
+    }
+    .form-textarea { min-height: 100px; }
+    .form-select { cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M3 4.5L6 7.5L9 4.5' stroke='%23737373' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px; }
+    .form-hint { font-size: 12px; color: #525252; }
+
+    /* Results */
+    .demo-results { display: none; }
+    .demo-results.visible { display: block; }
+    .demo-results-label { font-size: 12px; color: #737373; margin-bottom: 8px; }
+    .demo-preview-badge {
+      display: inline-block; font-size: 11px; font-weight: 500; color: #a3a3a3;
+      background: #1a1a1a; border: 1px solid #262626;
+      padding: 3px 8px; border-radius: 4px; margin-bottom: 16px;
+    }
+    .reply-cards { display: flex; flex-direction: column; gap: 12px; }
+    .reply-card {
+      background: #141414; border: 1px solid #262626; border-radius: 10px;
+      padding: 20px; display: flex; flex-direction: column; gap: 12px;
+    }
+    .reply-card p { font-size: 15px; color: #d4d4d4; line-height: 1.65; }
+    .reply-card-actions { display: flex; justify-content: space-between; align-items: center; }
+    .reply-card-hint { font-size: 11px; color: #525252; }
+    .copy-btn {
+      background: #1f1f1f; border: 1px solid #333; color: #d4d4d4;
+      padding: 6px 14px; border-radius: 6px; font-size: 12px; font-weight: 500;
+      cursor: pointer; font-family: inherit; transition: all 0.1s ease;
+    }
+    .copy-btn:hover { background: #2a2a2a; border-color: #404040; }
+    .copy-btn.copied { background: #ffffff; color: #0a0a0a; border-color: #ffffff; }
+
+    .demo-note { margin-top: 24px; padding: 16px; background: #0f0f0f; border-radius: 8px; }
+    .demo-note p { font-size: 13px; color: #737373; }
+
+    /* How it works */
+    .steps { display: grid; grid-template-columns: 1fr; gap: 16px; }
+    .step {
+      display: flex; gap: 16px; align-items: flex-start;
+      padding: 24px; background: #141414; border: 1px solid #262626; border-radius: 10px;
+    }
+    .step-num {
+      font-size: 28px; font-weight: 700; color: #333; line-height: 1;
+      min-width: 32px;
+    }
+    .step h4 { font-size: 16px; font-weight: 600; margin-bottom: 4px; }
+    .step p { font-size: 14px; color: #a3a3a3; }
+
+    /* Early access */
+    .early-access-form { display: flex; flex-direction: column; gap: 16px; max-width: 440px; }
+    .success-msg {
+      display: none; padding: 16px; background: #141414; border: 1px solid #262626;
+      border-radius: 10px; font-size: 15px; color: #d4d4d4; max-width: 440px;
+    }
+    .success-msg.visible { display: block; }
+
+    /* Footer */
+    .footer { padding: 48px 0; border-top: 1px solid #1a1a1a; }
+    .footer-inner { display: flex; flex-direction: column; gap: 12px; align-items: flex-start; }
+    .footer-links { display: flex; gap: 20px; flex-wrap: wrap; }
+    .footer-links a { color: #525252; text-decoration: none; font-size: 14px; transition: color 0.15s; }
+    .footer-links a:hover { color: #a3a3a3; }
+    .footer p { font-size: 14px; color: #525252; }
+
+    /* Divider */
+    .divider { border: none; border-top: 1px solid #1a1a1a; }
+
+    /* Mobile */
+    @media (max-width: 639px) {
+      .hero h1 { font-size: 30px; }
+      .hero p { font-size: 15px; }
+      .section-title { font-size: 26px; }
+      .section { padding: 60px 0; }
+      .badge { display: none; }
+    }
+
+    /* Tablet+ */
+    @media (min-width: 640px) {
+      .cards { grid-template-columns: repeat(3, 1fr); }
+      .steps { grid-template-columns: repeat(2, 1fr); }
+      .hero h1 { font-size: 44px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="container header-inner">
+      <div class="logo-wrap">
+        <img src="public/assets/signallane-logo.png" alt="SignalLane" class="logo-img" onerror="this.style.display='none'">
+        <span class="logo-text">SignalLane</span>
+      </div>
+      <span class="badge">Building in public</span>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero section" id="hero">
+    <div class="container">
+      <img src="public/assets/signallane-logo.png" alt="SignalLane" class="hero-logo" onerror="this.style.display='none'">
+      <div class="hero-badge">Building in public</div>
+      <h1>Grow on X with clearer signal, sharper replies, and less noise.</h1>
+      <p>We are building an AI growth assistant that helps creators, founders, builders, and businesses find better conversations, write sharper replies, and grow without sounding like AI.</p>
+      <div class="hero-buttons">
+        <a href="#demo" class="btn btn-primary">Try the reply generator</a>
+        <a href="#early-access" class="btn btn-secondary">Join early access</a>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- Problem -->
+  <section class="section-sm problem" id="problem">
+    <div class="container">
+      <p class="section-label">The problem</p>
+      <p>Most people on X don't know who to reply to, what to say, or how to grow without sounding generic. The feed moves fast, good conversations get buried, and replying thoughtfully takes time most builders and creators don't have.</p>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- Solution -->
+  <section class="section-sm" id="solution">
+    <div class="container">
+      <p class="section-label">What we are building</p>
+      <h2 class="section-title">Clearer signal. Sharper replies. Less noise.</h2>
+      <div class="cards">
+        <div class="card">
+          <span class="card-icon">&#128269;</span>
+          <h3>Find better conversations</h3>
+          <p>Stop scrolling endlessly. SignalLane surfaces the threads and posts worth replying to, so you spend time where it matters.</p>
+        </div>
+        <div class="card">
+          <span class="card-icon">&#9999;&#65039;</span>
+          <h3>Write sharper replies</h3>
+          <p>Get reply drafts that match your voice and angle. Helpful, sharp, contrarian — whatever fits the moment.</p>
+        </div>
+        <div class="card">
+          <span class="card-icon">&#128172;</span>
+          <h3>Grow without sounding like AI</h3>
+          <p>Every reply is meant to be edited by you. SignalLane gives you the draft — you add the human touch before posting.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- Reply Generator Demo -->
+  <section class="section-sm" id="demo">
+    <div class="container">
+      <p class="section-label">Try it</p>
+      <h2 class="section-title">Reply generator</h2>
+      <div class="demo-form" id="demoForm">
+        <div class="form-group">
+          <label class="form-label" for="tweetText">Paste a tweet</label>
+          <textarea id="tweetText" class="form-textarea" placeholder="Paste a tweet you want to reply to..."></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="voiceContext">My voice / context <span class="form-hint">(optional)</span></label>
+          <textarea id="voiceContext" class="form-textarea" placeholder="e.g. I'm a SaaS founder who writes about bootstrapping..."></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="replyAngle">Reply angle</label>
+          <select id="replyAngle" class="form-select">
+            <option value="helpful">Helpful</option>
+            <option value="sharp">Sharp</option>
+            <option value="founder-story">Founder story</option>
+            <option value="builder-insight">Builder insight</option>
+            <option value="soft-sell">Soft sell</option>
+            <option value="contrarian">Contrarian</option>
+          </select>
+        </div>
+        <button id="generateBtn" class="btn btn-primary" style="align-self: flex-start;">Generate replies</button>
+      </div>
+
+      <div class="demo-results" id="demoResults">
+        <div class="demo-results-label">Generated replies</div>
+        <span class="demo-preview-badge">Preview mode &mdash; local demo</span>
+        <div class="reply-cards" id="replyCards"></div>
+        <div class="demo-note">
+          <p>SignalLane is designed for human-approved posting. You stay in control. Edit any reply before you post — this is a preview, not a final product.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- How It Works -->
+  <section class="section-sm" id="how-it-works">
+    <div class="container">
+      <p class="section-label">How it works</p>
+      <h2 class="section-title">Simple by design</h2>
+      <div class="steps">
+        <div class="step">
+          <span class="step-num">1</span>
+          <div>
+            <h4>Paste a tweet</h4>
+            <p>Drop in any tweet you want to reply to. No login, no setup.</p>
+          </div>
+        </div>
+        <div class="step">
+          <span class="step-num">2</span>
+          <div>
+            <h4>Choose your angle</h4>
+            <p>Pick the tone that fits the conversation — helpful, sharp, contrarian, and more.</p>
+          </div>
+        </div>
+        <div class="step">
+          <span class="step-num">3</span>
+          <div>
+            <h4>Generate replies</h4>
+            <p>Get three reply drafts that sound human and match your chosen voice.</p>
+          </div>
+        </div>
+        <div class="step">
+          <span class="step-num">4</span>
+          <div>
+            <h4>Edit and post</h4>
+            <p>Copy the draft you like, tweak it to sound like you, and post it on X.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- Early Access -->
+  <section class="section-sm" id="early-access">
+    <div class="container">
+      <p class="section-label">Early access</p>
+      <h2 class="section-title">Get on the list</h2>
+      <p style="color:#a3a3a3;font-size:15px;margin-bottom:24px;max-width:440px;">We are building SignalLane for a small group first. Drop your email and we'll let you know when it's ready.</p>
+      <form class="early-access-form" id="earlyAccessForm">
+        <div class="form-group">
+          <label class="form-label" for="email">Email</label>
+          <input type="email" id="email" class="form-input" placeholder="you@example.com" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="role">I am a...</label>
+          <select id="role" class="form-select" required>
+            <option value="">Select role</option>
+            <option value="creator">Creator</option>
+            <option value="founder">Founder</option>
+            <option value="engineer">Engineer</option>
+            <option value="business-owner">Business owner</option>
+            <option value="agency">Agency</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="goal">My main goal on X is to...</label>
+          <select id="goal" class="form-select" required>
+            <option value="">Select goal</option>
+            <option value="get-more-replies">Get more replies</option>
+            <option value="grow-audience">Grow audience</option>
+            <option value="find-better-conversations">Find better conversations</option>
+            <option value="write-better-content">Write better content</option>
+            <option value="get-clients">Get clients from X</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-primary" style="align-self: flex-start;">Join early access</button>
+      </form>
+      <div class="success-msg" id="earlyAccessSuccess">
+        You're on the early access list.
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <p>We are building SignalLane.</p>
+      <div class="footer-links">
+        <a href="#hero">Home</a>
+        <a href="#demo">Reply generator</a>
+        <a href="#early-access">Early access</a>
+      </div>
+      <p style="font-size:12px;margin-top:4px;">Human-approved growth for X.</p>
+    </div>
+  </footer>
+
+  <script>
+    // --- Early Access: localStorage ---
+    (function() {
+      var STORAGE_KEY = 'signallane_early_access';
+      var form = document.getElementById('earlyAccessForm');
+      var success = document.getElementById('earlyAccessSuccess');
+      var emailInput = document.getElementById('email');
+      var roleSelect = document.getElementById('role');
+      var goalSelect = document.getElementById('goal');
+
+      var existing = localStorage.getItem(STORAGE_KEY);
+      if (existing) {
+        try {
+          var entries = JSON.parse(existing);
+          if (Array.isArray(entries) && entries.length > 0) {
+            form.style.display = 'none';
+            success.classList.add('visible');
+          }
+        } catch (e) {}
+      }
+
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        var email = emailInput.value.trim();
+        var role = roleSelect.value;
+        var goal = goalSelect.value;
+        if (!email || !role || !goal) return;
+        var entries = [];
+        try {
+          var raw = localStorage.getItem(STORAGE_KEY);
+          if (raw) entries = JSON.parse(raw);
+        } catch (e) {}
+        if (!Array.isArray(entries)) entries = [];
+        entries.push({ email: email, role: role, goal: goal, timestamp: new Date().toISOString() });
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(entries));
+        form.style.display = 'none';
+        success.classList.add('visible');
+      });
+    })();
+
+    // --- Reply Generator ---
+    (function() {
+      var tweetText = document.getElementById('tweetText');
+      var voiceContext = document.getElementById('voiceContext');
+      var replyAngle = document.getElementById('replyAngle');
+      var generateBtn = document.getElementById('generateBtn');
+      var demoResults = document.getElementById('demoResults');
+      var replyCards = document.getElementById('replyCards');
+
+      function extractKeywords(text) {
+        var words = text.split(/\s+/).filter(function(w) { return w.length > 3; });
+        var stopWords = ['that', 'this', 'with', 'from', 'they', 'will', 'have', 'been', 'were', 'when', 'your', 'what', 'about', 'which', 'their', 'there', 'would', 'could', 'should'];
+        words = words.filter(function(w) { return stopWords.indexOf(w.toLowerCase()) === -1; });
+        var cleaned = words.map(function(w) { return w.replace(/[^a-zA-Z0-9]/g, ''); }).filter(function(w) { return w.length > 2; });
+        var unique = [];
+        var seen = {};
+        for (var i = 0; i < cleaned.length; i++) {
+          var lower = cleaned[i].toLowerCase();
+          if (!seen[lower]) { seen[lower] = true; unique.push(cleaned[i]); }
+          if (unique.length >= 8) break;
+        }
+        return unique;
+      }
+
+      function getTopic(keywords) {
+        if (keywords.length === 0) return 'this topic';
+        if (keywords.length === 1) return keywords[0].toLowerCase();
+        return keywords[0].toLowerCase() + ' and ' + keywords[1].toLowerCase();
+      }
+
+      function getAngleLabel(angle) {
+        var map = {
+          'helpful': 'Helpful',
+          'sharp': 'Sharp',
+          'founder-story': 'Founder story',
+          'builder-insight': 'Builder insight',
+          'soft-sell': 'Soft sell',
+          'contrarian': 'Contrarian'
+        };
+        return map[angle] || angle;
+      }
+
+      function generateReplies(keywords, angle, voice) {
+        var topic = getTopic(keywords);
+        var word1 = keywords[0] || 'this';
+        var word2 = keywords[1] || keywords[0] || 'this';
+
+        var templates = {
+          'helpful': [
+            'Great point about ' + topic + '. One thing I\'d add: the people who get the best results are usually the ones who stay consistent when everyone else quits. Keep going.',
+            'This is spot on. I\'ve found that breaking ' + topic + ' down into smaller steps helps a lot — especially when you\'re just getting started. Happy to share more if useful.',
+            'Love seeing more conversation around ' + topic + '. A practical tip: document everything as you go. You\'ll thank yourself later when you can look back and see what actually worked.'
+          ],
+          'sharp': [
+            'Hot take: most people overcomplicate ' + topic + '. The real answer is usually the simple one nobody wants to hear.',
+            'Respectfully — this misses the point. ' + word1.charAt(0).toUpperCase() + word1.slice(1) + ' matters, but the thing everyone ignores is execution. Ideas are cheap.',
+            'Unpopular opinion: ' + topic + ' isn\'t the bottleneck. The bottleneck is that most people won\'t do the boring work consistently for 12 months.'
+          ],
+          'founder-story': [
+            'This resonates. When I was building my first product, ' + topic + ' was exactly the thing I kept getting wrong. Took me two years to figure out the pattern. Worth every mistake.',
+            'I learned this the hard way. Spent months optimizing ' + topic + ', only to realize the answer was right in front of me the whole time. Building teaches you fast.',
+            'Relatable. My approach to ' + topic + ' changed completely after my first launch. You don\'t really know until you ship. Everything before that is theory.'
+          ],
+          'builder-insight': [
+            'From a builder\'s perspective: ' + topic + ' is a systems problem, not a motivation problem. Build the system once and you don\'t have to think about it again.',
+            'Interesting thread. The engineering side of ' + topic + ' is underrated — most people treat it as soft stuff, but there\'s a real architecture to getting it right.',
+            'I\'ve been digging into ' + topic + ' lately and the biggest lever is usually the thing nobody talks about: iteration speed. Ship fast, learn faster.'
+          ],
+          'soft-sell': [
+            'This is exactly why I\'m working on something around ' + topic + '. DM me if you want an early look — I think it solves exactly this.',
+            'Great thread. I\'ve been building a tool that helps with ' + topic + ' — still early, but the initial results are promising. Happy to share if you\'re curious.',
+            'If ' + topic + ' is something you\'re thinking about, I might have something useful for you. Not public yet, but I can give you access if you DM me.'
+          ],
+          'contrarian': [
+            'I don\'t buy this. ' + word1.charAt(0).toUpperCase() + word1.slice(1) + ' is overrated and the data doesn\'t back it up. Here\'s what actually moves the needle...',
+            'Going to push back on this one. The framing around ' + topic + ' assumes a static world, but the reality is messier. Most advice doesn\'t survive contact with the market.',
+            'Counterpoint: obsessing over ' + topic + ' is exactly why most people stay stuck. The people winning right now are doing the opposite of what this thread suggests.'
+          ]
+        };
+
+        var replies = templates[angle] || templates['helpful'];
+        if (voice) {
+          replies = replies.map(function(r) {
+            return r + ' (' + voice.trim().slice(0, 30) + '...)';
+          });
+        }
+        return replies;
+      }
+
+      function createReplyCard(text, index) {
+        var card = document.createElement('div');
+        card.className = 'reply-card';
+
+        var p = document.createElement('p');
+        p.textContent = text;
+        card.appendChild(p);
+
+        var actions = document.createElement('div');
+        actions.className = 'reply-card-actions';
+
+        var hint = document.createElement('span');
+        hint.className = 'reply-card-hint';
+        hint.textContent = 'Draft ' + (index + 1) + ' · Copy and edit before posting';
+        actions.appendChild(hint);
+
+        var copyBtn = document.createElement('button');
+        copyBtn.className = 'copy-btn';
+        copyBtn.textContent = 'Copy';
+        copyBtn.addEventListener('click', function() {
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(text).then(function() {
+              copyBtn.textContent = 'Copied!';
+              copyBtn.classList.add('copied');
+              setTimeout(function() {
+                copyBtn.textContent = 'Copy';
+                copyBtn.classList.remove('copied');
+              }, 1500);
+            });
+          } else {
+            var ta = document.createElement('textarea');
+            ta.value = text;
+            ta.style.position = 'fixed';
+            ta.style.opacity = '0';
+            document.body.appendChild(ta);
+            ta.select();
+            try { document.execCommand('copy'); } catch (e) {}
+            document.body.removeChild(ta);
+            copyBtn.textContent = 'Copied!';
+            copyBtn.classList.add('copied');
+            setTimeout(function() {
+              copyBtn.textContent = 'Copy';
+              copyBtn.classList.remove('copied');
+            }, 1500);
+          }
+        });
+        actions.appendChild(copyBtn);
+        card.appendChild(actions);
+        return card;
+      }
+
+      generateBtn.addEventListener('click', function() {
+        var text = tweetText.value.trim();
+        if (!text) {
+          tweetText.focus();
+          return;
+        }
+        generateBtn.textContent = 'Generating...';
+        generateBtn.disabled = true;
+
+        setTimeout(function() {
+          var keywords = extractKeywords(text);
+          var angle = replyAngle.value;
+          var voice = voiceContext.value.trim();
+          var replies = generateReplies(keywords, angle, voice);
+
+          replyCards.innerHTML = '';
+          for (var i = 0; i < replies.length; i++) {
+            replyCards.appendChild(createReplyCard(replies[i], i));
+          }
+
+          demoResults.classList.add('visible');
+          demoResults.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          generateBtn.textContent = 'Generate replies';
+          generateBtn.disabled = false;
+        }, 600);
+      });
+    })();
+  </script>
+
+</body>
+</html>
