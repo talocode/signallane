@@ -34,9 +34,12 @@
     /* Sections */
     .section { padding: 80px 0; }
     .section-sm { padding: 60px 0; }
+    .hero.section { padding: 64px 0 80px; }
 
     /* Hero */
-    .hero-logo { height: 48px; width: auto; margin-bottom: 20px; }
+    .hero-brand { display: flex; align-items: center; gap: 14px; margin-bottom: 20px; }
+    .hero-logo { height: 48px; width: auto; }
+    .hero-brand-name { font-size: 24px; font-weight: 700; letter-spacing: -0.4px; }
     .hero-badge {
       display: inline-block; font-size: 13px; font-weight: 500; color: #a3a3a3;
       background: #141414; border: 1px solid #262626;
@@ -164,6 +167,9 @@
       .hero p { font-size: 15px; }
       .section-title { font-size: 26px; }
       .section { padding: 60px 0; }
+      .hero.section { padding: 48px 0 60px; }
+      .hero-brand-name { font-size: 20px; }
+      .hero-logo { height: 40px; }
       .badge { display: none; }
     }
 
@@ -191,7 +197,10 @@
   <!-- Hero -->
   <section class="hero section" id="hero">
     <div class="container">
-      <img src="public/assets/signallane-logo.png" alt="SignalLane" class="hero-logo" onerror="this.style.display='none'">
+      <div class="hero-brand">
+        <img src="public/assets/signallane-logo.png" alt="SignalLane" class="hero-logo" onerror="this.style.display='none'">
+        <span class="hero-brand-name">SignalLane</span>
+      </div>
       <div class="hero-badge">Building in public</div>
       <h1>Grow on X with clearer signal, sharper replies, and less noise.</h1>
       <p>We are building an AI growth assistant that helps creators, founders, builders, and businesses find better conversations, write sharper replies, and grow without sounding like AI.</p>
@@ -373,6 +382,7 @@
         <a href="#early-access">Early access</a>
       </div>
       <p style="font-size:12px;margin-top:4px;">Human-approved growth for X.</p>
+      <p style="font-size:12px;color:#404040;margin-top:2px;">Open source by <span style="color:#525252;">Talocode</span></p>
     </div>
   </footer>
 
