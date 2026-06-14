@@ -1,36 +1,25 @@
 # SignalLane
 
-SignalLane is an AI growth assistant for X. It helps creators, founders, builders, and businesses find better conversations, write sharper replies, and grow without sounding like AI.
+SignalLane is an open-source, local-first growth intelligence CLI/TUI for builders.
 
-## Status
+It helps creators, founders, engineers, and indie builders find better conversations, write sharper replies, generate hooks and angles, and grow on X without sounding like AI.
 
-Early MVP. We are building in public.
+## Install
 
-## Features
-
-- **Landing page** — Clean dark UI introducing the product.
-- **Reply generator demo** — Paste a tweet, pick a reply angle, get three human-style reply drafts. Preview mode with local mock generation.
-- **Early access form** — Email capture with role and goal fields. Submissions saved to `localStorage`.
-- **Copy-to-clipboard** — Every generated reply is copyable.
-
-## Run locally
-
-No dependencies. No build step.
-
-```
-open index.html
+```bash
+npx @talocode/signallane
 ```
 
-Or with a local server:
+Or install globally:
 
+```bash
+npm install -g @talocode/signallane
+signallane
 ```
-python -m http.server 3000
-```
 
-Then visit `http://localhost:3000`.
+## Package
 
-## Built by
+- Name: `@talocode/signallane`
+- Version: `0.1.0`
+- Binary: `signallane`
 
-Open source by [Talocode](https://github.com/talocode).
-
-Founded by [Abdulmuiz Adeyemo](https://github.com/Abdulmuiz44).
