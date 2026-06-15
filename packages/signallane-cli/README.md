@@ -4,18 +4,28 @@ SignalLane is a local-first growth intelligence CLI for X/Twitter builders.
 
 It helps creators, founders, engineers, and indie builders find better conversations, write sharper replies, and grow on X without sounding like AI.
 
-## Install
+## Try it in 10 seconds
 
 ```bash
-npx @talocode/signallane
+npx @talocode/signallane hooks --topic "AI tools"
 ```
 
-Or install globally:
+## Install
 
 ```bash
 npm install -g @talocode/signallane
 signallane
 ```
+
+Or just run it:
+
+```bash
+npx @talocode/signallane
+```
+
+## Local-first. No model required.
+
+SignalLane v0.1.x works without an AI model, API key, X login, scraping, or hosted service. It uses local deterministic writing patterns first.
 
 ## Commands
 
