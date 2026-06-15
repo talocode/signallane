@@ -1,5 +1,6 @@
-import { generateHooks } from '../lib/hooks-engine.js';
+import { generateHooks, HOOK_STYLES, type HookStyle } from '../lib/hooks-engine.js';
 
-export function hooksCommand(topic: string) {
-  return generateHooks(topic);
+export function hooksCommand(topic: string, count = 10, style?: string) {
+  const safeStyle = HOOK_STYLES.includes(style as HookStyle) ? (style as HookStyle) : 'default';
+  return generateHooks(topic, count, safeStyle);
 }

@@ -7,6 +7,7 @@ import { improveCommand } from './commands/improve.js';
 import { scoreCommand } from './commands/score.js';
 import { anglesCommand } from './commands/angles.js';
 import { hooksCommand } from './commands/hooks.js';
+import { examplesCommand } from './commands/examples.js';
 import { profileSetInteractive, profileShowCommand } from './commands/profile.js';
 import { runTui } from './tui/app.js';
 
@@ -64,7 +65,29 @@ export async function main(argv = process.argv) {
     .command('hooks')
     .description('generate hooks')
     .requiredOption('--topic <topic>', 'topic to explore')
-    .action((opts) => console.log(hooksCommand(opts.topic).join('\n')));
+    .option('--count <number>', 'number of hooks', '10')
+    .option('--style <style>', 'hook style (default | builder | contrarian | educational | story | technical)', 'default')
+    .action((opts) => {
+      const count = Math.min(50, Math.max(1, Number.parseInt(String(opts.count), 10) || 10));
+      const style = String(opts.style || 'default');
+      const values = hooksCommand(opts.topic, count, style);
+      console.log(
+        [
+          'SignalLane Hooks',
+          '',
+          `Topic: ${opts.topic}`,
+          `Style: ${style}`,
+          `Count: ${values.length}`,
+          '',
+          ...values.map((item, idx) => `${idx + 1}. ${item}`),
+        ].join('\n')
+      );
+    });
+
+  program
+    .command('examples')
+    .description('show example commands')
+    .action(() => console.log(examplesCommand().join('\n')));
 
   const profile = program.command('profile').description('manage local profile');
   profile.command('set').description('set local profile').action(async () => console.log(JSON.stringify(await profileSetInteractive(), null, 2)));

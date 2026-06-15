@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.1
+
+- Add --count and --style options to hooks
+- Improve hooks output formatting
+- Add signallane examples command
+- Update README with quickstart sections
+- Stronger local-first messaging
+
 ## 0.1.0
 
 Initial Talocode-scoped release of SignalLane.
@@ -12,4 +20,3 @@ Initial Talocode-scoped release of SignalLane.
 - Local profile management
 - No hosted services required
 - No X login, scraping, or auto-posting
-

@@ -1,6 +1,6 @@
 {
   "name": "@talocode/signallane",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "SignalLane is a local-first growth intelligence CLI for X builders.",
   "license": "MIT",
   "type": "module",
