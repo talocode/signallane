@@ -1,6 +1,8 @@
 export function examplesCommand() {
   return [
-    'Practical SignalLane examples:',
+    'SignalLane Examples',
+    '',
+    'Practical examples:',
     '',
     'signallane hooks --topic "AI coding agents"',
     'signallane hooks --topic "open source AI tools" --style builder',

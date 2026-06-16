@@ -1,6 +1,6 @@
 # Local-First Design
 
-SignalLane v0.1.0 does not require hosted services.
+SignalLane v0.1.1 does not require hosted services.
 
 ## What is local
 

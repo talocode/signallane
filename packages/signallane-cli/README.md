@@ -10,6 +10,10 @@ It helps creators, founders, engineers, and indie builders find better conversat
 npx @talocode/signallane hooks --topic "AI tools"
 ```
 
+## No model required
+
+SignalLane v0.1.x works without an AI model, API key, X login, scraping, or hosted service. It uses local deterministic writing patterns first.
+
 ## Install
 
 ```bash
@@ -22,10 +26,6 @@ Or just run it:
 ```bash
 npx @talocode/signallane
 ```
-
-## Local-first. No model required.
-
-SignalLane v0.1.x works without an AI model, API key, X login, scraping, or hosted service. It uses local deterministic writing patterns first.
 
 ## Commands
 
@@ -43,6 +43,7 @@ signallane angles --topic "AI coding agents"
 signallane hooks --topic "open source AI tools"
 signallane profile set
 signallane profile show
+signallane examples
 ```
 
 ## Local storage
@@ -60,4 +61,4 @@ No secrets. No telemetry. No network required.
 
 ## Release notes
 
-See [CHANGELOG.md](./CHANGELOG.md) for the v0.1.0 release notes.
+See [CHANGELOG.md](./CHANGELOG.md) for the v0.1.1 release notes.

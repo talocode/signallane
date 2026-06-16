@@ -2,11 +2,11 @@
 
 ## 0.1.1
 
-- Add --count and --style options to hooks
-- Improve hooks output formatting
-- Add signallane examples command
-- Update README with quickstart sections
-- Stronger local-first messaging
+- Add `--count` and `--style` options to `signallane hooks`
+- Improve hooks output formatting with topic, style, and count headers
+- Add `signallane examples`
+- Update README with quickstart and no-model messaging
+- Strengthen local-first release notes
 
 ## 0.1.0
 

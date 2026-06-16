@@ -6,10 +6,12 @@ import { replyCommand } from './commands/reply.js';
 import { improveCommand } from './commands/improve.js';
 import { scoreCommand } from './commands/score.js';
 import { anglesCommand } from './commands/angles.js';
-import { hooksCommand } from './commands/hooks.js';
+import { formatHooksOutput, hooksCommand } from './commands/hooks.js';
+import type { HookStyle } from './lib/hooks-engine.js';
 import { examplesCommand } from './commands/examples.js';
 import { profileSetInteractive, profileShowCommand } from './commands/profile.js';
 import { runTui } from './tui/app.js';
+import { HOOK_STYLES } from './lib/hooks-engine.js';
 
 export async function main(argv = process.argv) {
   const program = new Command();
@@ -66,22 +68,12 @@ export async function main(argv = process.argv) {
     .description('generate hooks')
     .requiredOption('--topic <topic>', 'topic to explore')
     .option('--count <number>', 'number of hooks', '10')
-    .option('--style <style>', 'hook style (default | builder | contrarian | educational | story | technical)', 'default')
+    .option('--style <style>', `hook style (${HOOK_STYLES.join(' | ')})`, 'default')
     .action((opts) => {
       const count = Math.min(50, Math.max(1, Number.parseInt(String(opts.count), 10) || 10));
       const style = String(opts.style || 'default');
       const values = hooksCommand(opts.topic, count, style);
-      console.log(
-        [
-          'SignalLane Hooks',
-          '',
-          `Topic: ${opts.topic}`,
-          `Style: ${style}`,
-          `Count: ${values.length}`,
-          '',
-          ...values.map((item, idx) => `${idx + 1}. ${item}`),
-        ].join('\n')
-      );
+      console.log(formatHooksOutput(opts.topic, style as HookStyle, values));
     });
 
   program

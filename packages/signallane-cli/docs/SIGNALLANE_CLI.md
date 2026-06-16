@@ -18,6 +18,7 @@ SignalLane is intentionally small and scriptable.
 - `signallane score --text "..."`
 - `signallane angles --topic "..."`
 - `signallane hooks --topic "..."`
+- `signallane examples`
 - `signallane profile set`
 - `signallane profile show`
 

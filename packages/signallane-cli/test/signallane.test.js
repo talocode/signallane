@@ -11,6 +11,7 @@ import { generateHooks, HOOK_STYLES } from '../dist/lib/hooks-engine.js';
 import { initCommand } from '../dist/commands/init.js';
 import { hooksCommand } from '../dist/commands/hooks.js';
 import { examplesCommand } from '../dist/commands/examples.js';
+import { VERSION } from '../dist/lib/version.js';
 
 test('profile creation', () => {
   const profile = emptyProfile();
@@ -59,7 +60,12 @@ test('hooks style variants', () => {
 
 test('examples command', () => {
   const lines = examplesCommand();
-  assert.ok(lines.some((line) => line.includes('signallane')));
+  assert.equal(lines[0], 'SignalLane Examples');
+  assert.ok(lines.some((line) => line.includes('signallane hooks --topic "AI coding agents"')));
+});
+
+test('version constant', () => {
+  assert.equal(VERSION, '0.1.1');
 });
 
 test('package metadata', async () => {
