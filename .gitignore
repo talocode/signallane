@@ -3,3 +3,6 @@ packages/**/node_modules/
 packages/**/dist/
 packages/**/talocode-signallane-*.tgz
 *.tgz
+dist/
+.env
+*.log
