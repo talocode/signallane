@@ -151,6 +151,17 @@ SignalLane is open source and self-hostable:
 
 For hosted billing via Talocode Cloud, set `TALOCODE_BASE_URL=https://api.talocode.site`.
 
+## Talocode Domains
+
+| Domain | Purpose |
+|--------|---------|
+| [talocode.site](https://talocode.site) | Main site / homepage |
+| [docs.talocode.site](https://docs.talocode.site) | Documentation |
+| [api.talocode.site](https://api.talocode.site) | API endpoint |
+| [cloud.talocode.site](https://cloud.talocode.site) | Cloud dashboard |
+| [stacklane.talocode.site](https://stacklane.talocode.site) | Stacklane platform |
+| [dashboard.talocode.site](https://dashboard.talocode.site) | Dashboard |
+
 ## License
 
 MIT — part of the [Talocode](https://talocode.site) ecosystem.
