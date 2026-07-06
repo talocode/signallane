@@ -165,3 +165,9 @@ For hosted billing via Talocode Cloud, set `TALOCODE_BASE_URL=https://api.taloco
 ## License
 
 MIT — part of the [Talocode](https://talocode.site) ecosystem.
+
+## Support
+
+Open-source Talocode products are built and maintained by Abdulmuiz Adeyemo.
+
+Sponsor the work: https://github.com/sponsors/Abdulmuiz44
