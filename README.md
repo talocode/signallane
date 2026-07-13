@@ -158,7 +158,7 @@ For hosted billing via Talocode Cloud, set `TALOCODE_BASE_URL=https://api.taloco
 | [talocode.site](https://talocode.site) | Main site / homepage |
 | [docs.talocode.site](https://docs.talocode.site) | Documentation |
 | [api.talocode.site](https://api.talocode.site) | API endpoint |
-| [cloud.talocode.site](https://cloud.talocode.site) | Cloud dashboard |
+| [dashboard.talocode.site](https://dashboard.talocode.site) | Cloud dashboard |
 | [stacklane.talocode.site](https://stacklane.talocode.site) | Stacklane platform |
 | [dashboard.talocode.site](https://dashboard.talocode.site) | Dashboard |
 
